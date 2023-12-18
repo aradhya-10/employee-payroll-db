@@ -279,3 +279,71 @@ mysql> SELECT * FROM employee_departments;
 |      5 |      3 |
 +--------+--------+
 6 rows in set (0.00 sec)
+
+
+-- UC12: Retrieve all data and ensure all UCs still work
+mysql> -- Retrieving all the data with department
+mysql> SELECT
+       ->     ep.emp_id,
+       ->     ep.name,
+       ->     ep.salary,
+       ->     ep.start_date,
+       ->     ep.gender,
+       ->     ep.phone,
+       ->     ep.address,
+       ->     ep.deductions,
+       ->     ep.taxable_pay,
+       ->     ep.income_tax,
+       ->     ep.net_pay,
+       ->     dep.department
+       -> FROM employee_payroll ep
+       -> INNER JOIN employee_departments ed ON ep.emp_id = ed.emp_id
+       -> INNER JOIN departments dep ON ed.dep_id = dep.dep_id;
++--------+---------+--------+------------+--------+---------------+----------------+------------+-------------+------------+---------+-------------+
+| emp_id | name    | salary | start_date | gender | phone         | address        | deductions | taxable_pay | income_tax | net_pay | department  |
++--------+---------+--------+------------+--------+---------------+----------------+------------+-------------+------------+---------+-------------+
+|      1 | Bill    |  10000 | 2022-10-11 | M      | 91 9876543210 | Random Street  |       2500 |        1200 |        250 |    8500 | Development |
+|      2 | Alice   |  20000 | 2023-05-09 | F      | 91 8765432109 | Unknown Lane   |       3500 |        1800 |        600 |   17500 | Sales       |
+|      3 | Charlie |  35000 | 2023-01-01 | M      | 91 7654321098 | Mystery Avenue |       5500 |        3200 |       1200 |   29500 | Marketing   |
+|      4 | Dave    |  25000 | 2023-11-01 | M      | 91 6543210987 | Secret Square  |       3200 |        1600 |        550 |   21500 | Development |
+|      5 | Terissa |  40000 | 2023-12-08 | F      | 91 9456314785 | New Address    |       5000 |        3000 |       1000 |   35000 | Sales       |
+|      5 | Terissa |  40000 | 2023-12-08 | F      | 91 9456314785 | New Address    |       5000 |        3000 |       1000 |   35000 | Marketing   |
++--------+---------+--------+------------+--------+---------------+----------------+------------+-------------+------------+---------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT name, start_date FROM employee_payroll WHERE start_date BETWEEN CAST('2023-01-01' AS DATE) AND DATE(NOW());
++---------+------------+
+| name    | start_date |
++---------+------------+
+| Alice   | 2023-05-09 |
+| Charlie | 2023-01-01 |
+| Dave    | 2023-11-01 |
+| Terissa | 2023-12-08 |
++---------+------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT SUM(salary), MIN(salary), MAX(salary) FROM employee_payroll WHERE gender = 'M' GROUP BY gender;
++-------------+-------------+-------------+
+| SUM(salary) | MIN(salary) | MAX(salary) |
++-------------+-------------+-------------+
+|       70000 |       10000 |       35000 |
++-------------+-------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT gender, AVG(salary) FROM employee_payroll GROUP BY gender;
++--------+--------------------+
+| gender | AVG(salary)        |
++--------+--------------------+
+| F      |              30000 |
+| M      | 23333.333333333332 |
++--------+--------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT gender, COUNT(gender) FROM employee_payroll GROUP BY gender;
++--------+---------------+
+| gender | COUNT(gender) |
++--------+---------------+
+| F      |             2 |
+| M      |             3 |
++--------+---------------+
+2 rows in set (0.00 sec)
