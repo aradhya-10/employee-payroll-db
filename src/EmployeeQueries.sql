@@ -88,3 +88,39 @@ Rows matched: 2  Changed: 2  Warnings: 0
 mysql> UPDATE employee_payroll SET gender = 'F' WHERE name = 'Alice';
 Query OK, 1 row affected (0.01 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
+
+
+-- UC7: Analysis using SUM, AVG, MIN, MAX and COUNT functions
+mysql> SELECT SUM(salary) AS total_salary_male FROM employee_payroll WHERE gender = 'M';
++-------------------+
+| total_salary_male |
++-------------------+
+|             70000 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT gender, AVG(salary) AS average_salary FROM employee_payroll GROUP BY gender;
++--------+--------------------+
+| gender | average_salary     |
++--------+--------------------+
+| F      |              20000 |
+| M      | 23333.333333333332 |
++--------+--------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT MIN(salary) AS min_salary_male, MAX(salary) AS max_salary_male FROM employee_payroll WHERE gender = 'M';
++-----------------+-----------------+
+| min_salary_male | max_salary_male |
++-----------------+-----------------+
+|           10000 |           35000 |
++-----------------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT gender, COUNT(gender) AS employee_count FROM employee_payroll GROUP BY gender;
++--------+----------------+
+| gender | employee_count |
++--------+----------------+
+| F      |              1 |
+| M      |              3 |
++--------+----------------+
+2 rows in set (0.00 sec)
