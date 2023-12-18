@@ -124,3 +124,41 @@ mysql> SELECT gender, COUNT(gender) AS employee_count FROM employee_payroll GROU
 | M      |              3 |
 +--------+----------------+
 2 rows in set (0.00 sec)
+
+
+-- UC8: Alter table to add phone, address, and department columns
+mysql> ALTER TABLE employee_payroll
+    -> ADD COLUMN phone VARCHAR(20),
+    -> ADD COLUMN address VARCHAR(50),
+    -> ADD COLUMN department VARCHAR(20);
+Query OK, 4 rows affected (0.05 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+-- Update employee data with random values for phone, address, and department
+mysql> UPDATE employee_payroll SET phone = '91 9876543210', address = 'Random Street', department = 'IT' WHERE emp_id = 1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE employee_payroll SET phone = '91 8765432109', address = 'Unknown Lane', department = 'Finance' WHERE emp_id = 2;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE employee_payroll SET phone = '91 7654321098', address = 'Mystery Avenue', department = 'HR' WHERE emp_id = 3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE employee_payroll SET phone = '91 6543210987', address = 'Secret Square', department = 'IT' WHERE emp_id = 4;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+-- View the updated data
+mysql> SELECT * FROM employee_payroll;
++--------+---------+--------+--------+------------+---------------+----------------+------------+
+| emp_id | name    | gender | salary | start_date | phone         | address        | department |
++--------+---------+--------+--------+------------+---------------+----------------+------------+
+|      1 | Bill    | M      |  10000 | 2022-10-11 | 91 9876543210 | Random Street  | IT         |
+|      2 | Alice   | F      |  20000 | 2023-05-09 | 91 8765432109 | Unknown Lane   | Finance    |
+|      3 | Charlie | M      |  35000 | 2023-01-01 | 91 7654321098 | Mystery Avenue | HR         |
+|      4 | Dave    | M      |  25000 | 2023-11-01 | 91 6543210987 | Secret Square  | IT         |
++--------+---------+--------+--------+------------+---------------+----------------+------------+
+4 rows in set (0.00 sec)
