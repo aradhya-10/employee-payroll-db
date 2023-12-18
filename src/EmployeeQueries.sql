@@ -2,7 +2,6 @@
 mysql> CREATE DATABASE payroll_service;
 Query OK, 1 row affected (0.02 sec)
 
-
 -- Viewing the databases
 mysql> SHOW DATABASES;
 +--------------------+
@@ -20,3 +19,14 @@ mysql> SHOW DATABASES;
 -- Using the database
 mysql> USE payroll_service;
 Database changed
+
+
+-- UC2: Creating Table
+mysql> create table employee_payroll (
+    ->  emp_id int auto_increment not null,
+    ->  name varchar(50) not null,
+    ->     salary double,
+    ->     start_date date,
+    ->     primary key (emp_id)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
