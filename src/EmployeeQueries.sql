@@ -75,3 +75,16 @@ mysql> SELECT name, start_date FROM employee_payroll WHERE start_date BETWEEN CA
 +---------+------------+
 4 rows in set (0.00 sec)
 
+
+-- UC6: Adding a column of gender to the table and updating values for gender column in table
+mysql> ALTER TABLE employee_payroll ADD COLUMN gender VARCHAR(1) AFTER name;
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE employee_payroll SET gender = 'M' WHERE name = 'Bill' OR name = 'Charlie';
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> UPDATE employee_payroll SET gender = 'F' WHERE name = 'Alice';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
