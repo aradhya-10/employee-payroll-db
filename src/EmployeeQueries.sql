@@ -54,3 +54,24 @@ mysql> SELECT * FROM employee_payroll;
 +--------+---------+--------+------------+
 4 rows in set (0.00 sec)
 
+
+-- UC5: Getting salary of the employee named 'Bill'
+mysql> SELECT salary FROM employee_payroll WHERE name = 'Bill';
++--------+
+| salary |
++--------+
+|  10000 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT name, start_date FROM employee_payroll WHERE start_date BETWEEN CAST('2018-01-01' AS DATE) AND DATE(NOW());
++---------+------------+
+| name    | start_date |
++---------+------------+
+| Bill    | 2022-10-11 |
+| Alice   | 2023-05-09 |
+| Charlie | 2023-01-01 |
+| Dave    | 2023-11-01 |
++---------+------------+
+4 rows in set (0.00 sec)
+
