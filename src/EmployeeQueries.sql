@@ -206,3 +206,76 @@ mysql> SELECT * FROM employee_payroll;
 mysql> INSERT INTO employee_payroll(name, salary, start_date, gender, phone, address, department, deductions, taxable_pay, income_tax, net_pay)
     -> VALUES ("Terissa", 40000, '2023-12-08', 'female', '91 9456314785', 'avenue-405', 'Sales', 5000, 3000, 1000, 35000);
 
+
+-- UC11: Update the Table Structure
+mysql> ALTER TABLE employee_payroll DROP COLUMN department;
+mysql> DELETE FROM employee_payroll WHERE name = "Terissa";
+Query OK, 0 rows affected (0.00 sec)
+
+-- Insert new data for Terissa
+mysql> INSERT INTO employee_payroll(name, salary, start_date, gender, phone, address, deductions, taxable_pay, income_tax, net_pay)
+    -> VALUES ("Terissa", 40000, "2023-12-08", "F", "91 9456314785", "New Address", 5000, 3000, 1000, 35000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM employee_payroll;
++--------+---------+--------+--------+------------+---------------+----------------+------------+-------------+------------+---------+
+| emp_id | name    | gender | salary | start_date | phone         | address        | deductions | taxable_pay | income_tax | net_pay |
++--------+---------+--------+--------+------------+---------------+----------------+------------+-------------+------------+---------+
+|      1 | Bill    | M      |  10000 | 2022-10-11 | 91 9876543210 | Random Street  |       2500 |        1200 |        250 |    8500 |
+|      2 | Alice   | F      |  20000 | 2023-05-09 | 91 8765432109 | Unknown Lane   |       3500 |        1800 |        600 |   17500 |
+|      3 | Charlie | M      |  35000 | 2023-01-01 | 91 7654321098 | Mystery Avenue |       5500 |        3200 |       1200 |   29500 |
+|      4 | Dave    | M      |  25000 | 2023-11-01 | 91 6543210987 | Secret Square  |       3200 |        1600 |        550 |   21500 |
+|      5 | Terissa | F      |  40000 | 2023-12-08 | 91 9456314785 | New Address    |       5000 |        3000 |       1000 |   35000 |
++--------+---------+--------+--------+------------+---------------+----------------+------------+-------------+------------+---------+
+5 rows in set (0.00 sec)
+
+-- Create new Department Table
+mysql> CREATE TABLE departments(
+    ->     dep_id INT NOT NULL AUTO_INCREMENT,
+    ->     department VARCHAR(20),
+    ->     PRIMARY KEY(dep_id)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT INTO departments(department) VALUES ("Development"), ("Sales and Marketing"), ("Finance");
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM departments;
++--------+--------------------------+
+| dep_id | department               |
++--------+--------------------------+
+|      1 | Development              |
+|      2 | Sales and Marketing      |
+|      3 | Finance                  |
++--------+--------------------------+
+3 rows in set (0.00 sec)
+
+-- Create the 'employee_departments' table
+mysql> CREATE TABLE employee_departments (
+    ->     emp_id INT NOT NULL,
+    ->     dep_id INT NOT NULL,
+    ->     FOREIGN KEY (emp_id) REFERENCES employee_payroll(emp_id),
+    ->     FOREIGN KEY (dep_id) REFERENCES departments(dep_id)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+-- Insert new data into employee_departments
+mysql> INSERT INTO employee_departments (emp_id, dep_id) VALUES
+    ->     (1, 1), (2, 2), (3, 3), (4, 1), (5, 2), (5, 3);
+Query OK, 6 rows affected (0.00 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+-- Check the data in employee_departments
+mysql> SELECT * FROM employee_departments;
++--------+--------+
+| emp_id | dep_id |
++--------+--------+
+|      1 |      1 |
+|      2 |      2 |
+|      3 |      3 |
+|      4 |      1 |
+|      5 |      2 |
+|      5 |      3 |
++--------+--------+
+6 rows in set (0.00 sec)
