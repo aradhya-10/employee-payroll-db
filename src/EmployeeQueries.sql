@@ -30,3 +30,14 @@ mysql> create table employee_payroll (
     ->     primary key (emp_id)
     -> );
 Query OK, 0 rows affected (0.02 sec)
+
+
+-- UC3: Inserting data into the table
+mysql> INSERT INTO employee_payroll (name, salary, start_date) VALUES
+    ->     ('Bill', 10000, '2022-10-11'),
+    ->     ('Alice', 20000, '2023-05-09'),
+    ->     ('Charlie', 35000, '2023-01-01'),
+    ->     ('Dave', 25000, '2023-11-01');
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
