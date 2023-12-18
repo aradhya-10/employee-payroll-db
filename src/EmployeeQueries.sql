@@ -200,3 +200,9 @@ mysql> SELECT * FROM employee_payroll;
 |      4 | Dave    | M      |  25000 | 2023-11-01 | 91 6543210987 | Secret Square  | IT         |       3200 |        1600 |        550 |   21500 |
 +--------+---------+--------+--------+------------+---------------+----------------+------------+------------+-------------+------------+---------+
 4 rows in set (0.00 sec)
+
+
+-- UC10: Inserting data for Terissa with updated addresses
+mysql> INSERT INTO employee_payroll(name, salary, start_date, gender, phone, address, department, deductions, taxable_pay, income_tax, net_pay)
+    -> VALUES ("Terissa", 40000, '2023-12-08', 'female', '91 9456314785', 'avenue-405', 'Sales', 5000, 3000, 1000, 35000);
+
