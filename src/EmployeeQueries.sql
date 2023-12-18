@@ -162,3 +162,41 @@ mysql> SELECT * FROM employee_payroll;
 |      4 | Dave    | M      |  25000 | 2023-11-01 | 91 6543210987 | Secret Square  | IT         |
 +--------+---------+--------+--------+------------+---------------+----------------+------------+
 4 rows in set (0.00 sec)
+
+
+-- UC9: Alter table to add deductions, taxable_pay, income_tax, and net_pay columns
+mysql> ALTER TABLE employee_payroll
+    -> ADD COLUMN deductions INT,
+    -> ADD COLUMN taxable_pay INT,
+    -> ADD COLUMN income_tax INT,
+    -> ADD COLUMN net_pay INT;
+Query OK, 4 rows affected (0.03 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE employee_payroll SET deductions = 2500, taxable_pay = 1200, income_tax = 250, net_pay = 8500 WHERE emp_id = 1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE employee_payroll SET deductions = 3500, taxable_pay = 1800, income_tax = 600, net_pay = 17500 WHERE emp_id = 2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE employee_payroll SET deductions = 5500, taxable_pay = 3200, income_tax = 1200, net_pay = 29500 WHERE emp_id = 3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE employee_payroll SET deductions = 3200, taxable_pay = 1600, income_tax = 550, net_pay = 21500 WHERE emp_id = 4;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+-- View the updated data
+mysql> SELECT * FROM employee_payroll;
++--------+---------+--------+--------+------------+---------------+----------------+------------+------------+-------------+------------+---------+
+| emp_id | name    | gender | salary | start_date | phone         | address        | department | deductions | taxable_pay | income_tax | net_pay |
++--------+---------+--------+--------+------------+---------------+----------------+------------+------------+-------------+------------+---------+
+|      1 | Bill    | M      |  10000 | 2022-10-11 | 91 9876543210 | Random Street  | IT         |       2500 |        1200 |        250 |    8500 |
+|      2 | Alice   | F      |  20000 | 2023-05-09 | 91 8765432109 | Unknown Lane   | Finance    |       3500 |        1800 |        600 |   17500 |
+|      3 | Charlie | M      |  35000 | 2023-01-01 | 91 7654321098 | Mystery Avenue | HR         |       5500 |        3200 |       1200 |   29500 |
+|      4 | Dave    | M      |  25000 | 2023-11-01 | 91 6543210987 | Secret Square  | IT         |       3200 |        1600 |        550 |   21500 |
++--------+---------+--------+--------+------------+---------------+----------------+------------+------------+-------------+------------+---------+
+4 rows in set (0.00 sec)
