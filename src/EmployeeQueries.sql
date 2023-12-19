@@ -206,6 +206,25 @@ mysql> SELECT * FROM employee_payroll;
 mysql> INSERT INTO employee_payroll(name, salary, start_date, gender, phone, address, department, deductions, taxable_pay, income_tax, net_pay)
     -> VALUES ("Terissa", 40000, '2023-12-08', 'female', '91 9456314785', 'avenue-405', 'Sales', 5000, 3000, 1000, 35000);
 
+-- ER Model
+mysql> DESC employee_payroll;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| emp_id      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name        | varchar(50) | NO   |     | NULL    |                |
+| gender      | varchar(1)  | YES  |     | NULL    |                |
+| salary      | double      | YES  |     | NULL    |                |
+| start_date  | date        | YES  |     | NULL    |                |
+| phone       | varchar(20) | YES  |     | NULL    |                |
+| address     | varchar(50) | YES  |     | NULL    |                |
+| deductions  | int(11)     | YES  |     | NULL    |                |
+| taxable_pay | int(11)     | YES  |     | NULL    |                |
+| income_tax  | int(11)     | YES  |     | NULL    |                |
+| net_pay     | int(11)     | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+11 rows in set (0.00 sec)
+
 
 -- UC11: Update the Table Structure
 mysql> ALTER TABLE employee_payroll DROP COLUMN department;
